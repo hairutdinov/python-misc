@@ -9,6 +9,7 @@
 # else:
 #     print(operation_count)
 
+
 def indexer(s, t):
     offset = 0
     while offset != -1:

@@ -1,6 +1,5 @@
 def foo():
-    1.0/0.0
-
+    1.0 / 0.0
 
 
 try:
@@ -11,4 +10,3 @@ except ArithmeticError:
     print("ArithmeticError")
 except AssertionError:
     print("AssertionError")
-

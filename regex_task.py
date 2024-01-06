@@ -39,10 +39,9 @@
 #         assert result == "\"htis' !si. ?1nce,"
 
 
-
-
 import re
 import sys
+
 for line in sys.stdin:
     pattern = r"\b(\w)(\w)"
     result = re.sub(pattern, r"\2\1", line.rstrip())

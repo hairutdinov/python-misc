@@ -5,7 +5,12 @@ pattern = re.compile(r'<a\s+(?:[^>]*?\s+)?href=[\'"]?([^\'" >]+)[\'"]?', re.IGNO
 doc_a, doc_b = input(), input()
 found = False
 for url in pattern.findall(requests.get(doc_a).text):
-    if any(map(lambda u: u.replace("stepic.org", "stepik.org") == doc_b, pattern.findall(requests.get(url).text))):
+    if any(
+        map(
+            lambda u: u.replace("stepic.org", "stepik.org") == doc_b,
+            pattern.findall(requests.get(url).text),
+        )
+    ):
         found = True
 print(["No", "Yes"][found])
 
@@ -27,7 +32,6 @@ print(["No", "Yes"][found])
 #         pass
 
 # print("Yes" if can_redirect_in_two_steps(doc_a, doc_b) else "No")
-
 
 
 # import requests
@@ -64,8 +68,6 @@ print(["No", "Yes"][found])
 # doc_a, doc_b = [input().replace("stepic.org", "stepik.org") for _ in range(2)]
 #
 # print("Yes" if can_redirect_in_two_steps(doc_a, doc_b) else "No")
-
-
 
 
 # import re

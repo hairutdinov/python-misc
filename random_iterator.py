@@ -55,5 +55,5 @@ class MyList(PaginationIterator, list):
     #     return PaginationIterator(self)
 
 
-for pair in MyList([1,2,3,4,5,6,7]):
+for pair in MyList([1, 2, 3, 4, 5, 6, 7]):
     print(pair)

@@ -1,4 +1,6 @@
 import operator
+
+
 class ExtendedStack(list):
     def sum(self):
         self.operation(operator.add)
@@ -15,6 +17,7 @@ class ExtendedStack(list):
     def operation(self, cb):
         e1, e2 = self.pop(), self.pop()
         self.append(cb(e1, e2))
+
 
 es = ExtendedStack()
 es.append(10)

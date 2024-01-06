@@ -4,8 +4,8 @@ upper = 16
 offset = 1
 step = 2
 
-a[lower + offset:upper + offset]
-a[lower : : upper]
 a[lower + offset : upper + offset]
-a[lower+offset : upper+offset]
+a[lower::upper]
+a[lower + offset : upper + offset]
+a[lower + offset : upper + offset]
 a[lower:upper], a[lower:upper:], a[lower::step]

@@ -1,4 +1,3 @@
-
 from binascii import hexlify
 from getpass import getpass
 from sys import stdin
@@ -13,7 +12,7 @@ print("message: ")
 message = stdin.readline()
 
 # encrypt the plaintext.  we explicitly convert to bytes first (optional)
-ciphertext = encrypt(password, message.encode('utf8'))
+ciphertext = encrypt(password, message.encode("utf8"))
 
 # the ciphertext plaintext is bytes, so we display it as a hex string
 print("ciphertext: %s" % hexlify(ciphertext))
@@ -23,4 +22,4 @@ plaintext = decrypt(password, ciphertext)
 
 # the decrypted plaintext is bytes, but we can convert it back to a string
 print("plaintext: %s" % plaintext)
-print("plaintext as string: %s" % plaintext.decode('utf8'))
+print("plaintext as string: %s" % plaintext.decode("utf8"))

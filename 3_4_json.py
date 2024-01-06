@@ -14,17 +14,19 @@ from operator import itemgetter
 data = json.loads(input())
 # data = [{"name": "B", "parents": ["A", "C"]}, {"name": "C", "parents": ["A"]}, {"name": "A", "parents": []}, {"name": "D", "parents":["C", "F"]}, {"name": "E", "parents":["D"]}, {"name": "F", "parents":[]}]
 
+
 def find_cls_parents_by_name(cls_name):
     """
-        Находит родителей по имени класса
-        :param str cls_name: ключ <name> из словаря {"name": "cls_name", "parents": [...]}
-        :return: список родителей
+    Находит родителей по имени класса
+    :param str cls_name: ключ <name> из словаря {"name": "cls_name", "parents": [...]}
+    :return: список родителей
     """
     try:
-        idx = list(map(itemgetter('name'), data)).index(cls_name)
+        idx = list(map(itemgetter("name"), data)).index(cls_name)
         return data[idx].get("parents", [])
     except ValueError:
         return None
+
 
 def parents_tree(cls_obj):
     parents = []
@@ -37,6 +39,7 @@ def parents_tree(cls_obj):
             if p not in visited:
                 parents.append(p)
     return list(visited)
+
 
 child_and_parents = {item["name"]: parents_tree(item) for item in data}
 

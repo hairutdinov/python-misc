@@ -24,7 +24,7 @@ def is_prime_number(number):
     # Проверьте множители от 2 до квадратного корня числа
     if number < 2:
         return False
-    for i in range(2, int(number ** 0.5) + 1):
+    for i in range(2, int(number**0.5) + 1):
         if number % i == 0:
             return False
     return True
@@ -32,16 +32,16 @@ def is_prime_number(number):
 
 def generate_prime_number(is_prime_number_cb=None, offset: int = 0):
     """
-       Generates prime numbers starting from the given offset.
+    Generates prime numbers starting from the given offset.
 
-       Args:
-           is_prime_number_cb (callable): A function to check if a number is prime.
-                                       Defaults to the built-in is_prime_number function.
-           offset (int): The starting point for generating prime numbers.
+    Args:
+        is_prime_number_cb (callable): A function to check if a number is prime.
+                                    Defaults to the built-in is_prime_number function.
+        offset (int): The starting point for generating prime numbers.
 
-       Returns:
-           generator: A generator function for prime numbers.
-       """
+    Returns:
+        generator: A generator function for prime numbers.
+    """
     current_number = offset
     is_prime = is_prime_number_cb or is_prime_number
 
@@ -82,7 +82,9 @@ def list_intersection(*lists):
     keys_intersection_set = set.intersection(*map(set, element_count))
     intersection = []
     for element in keys_intersection_set:
-        intersection.extend([element] * min(map(lambda _list: _list[element], element_count)))
+        intersection.extend(
+            [element] * min(map(lambda _list: _list[element], element_count))
+        )
     return intersection
     # return list((Counter(list1) & Counter(list2)).elements())
 
@@ -99,14 +101,16 @@ def gcd_method_two(*numbers):
 
 # print(gcd_method_two(12, 24, 36, 42))
 
+
 def list_relative_complement(list1, list2):
     """
-        Ищет разницу list1 - list2
+    Ищет разницу list1 - list2
     """
     return list((Counter(list1) - Counter(list2)).elements())
 
 
 # print(list_relative_complement([2, 2, 2], [2, 3, 3]))
+
 
 def gcd_method_three(a, b):
     # * Разложить оба числа на простые множители
@@ -118,11 +122,11 @@ def gcd_method_three(a, b):
 
 def gcd_euclidean_algorithm(*numbers: int):
     """
-        Greatest Common Divisor - The Euclidean Algorithm
-        1. Большее число поделить на меньшее
-        2. Если остаток не равен 0, то меньшее число поделить на остаток
-        3. Если остаток не равен 0, первый остаток поделить на второй остаток
-        4. Деление продолжается пока в остатке не будет 0. Последний делитель и есть НОД.
+    Greatest Common Divisor - The Euclidean Algorithm
+    1. Большее число поделить на меньшее
+    2. Если остаток не равен 0, то меньшее число поделить на остаток
+    3. Если остаток не равен 0, первый остаток поделить на второй остаток
+    4. Деление продолжается пока в остатке не будет 0. Последний делитель и есть НОД.
     """
     numbers = list(numbers)
     gcd_result = None
@@ -138,6 +142,7 @@ def gcd_euclidean_algorithm(*numbers: int):
         gcd_result = greater_num
 
     return gcd_result
+
 
 nums = [140, 96, 92]
 print("gcd(%s)" % (",".join(map(str, nums))), gcd_euclidean_algorithm(*nums))

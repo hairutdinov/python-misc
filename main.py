@@ -19,6 +19,5 @@ def process_classes():
                     return True
         return False
 
-
     for tpl in [input().split(" ") for _ in range(int(input()))]:
         print("Yes" if is_parent(tpl[0], tpl[1]) else "No")

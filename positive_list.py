@@ -1,5 +1,7 @@
 class NonPositiveError(Exception):
     pass
+
+
 class PositiveList(list):
     def append(self, __object) -> None:
         if __object < 1:

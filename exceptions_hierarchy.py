@@ -6,6 +6,7 @@ user_exceptions = []
 exceptions = {d: set(b[1:]) for _ in range(int(input())) for d, *b in [input().split()]}
 # exceptions = {'ArithmeticError': [], 'ZeroDivisionError': ['ArithmeticError'], 'OSError': [], 'FileNotFoundError': ['OSError']}
 
+
 def exception_parent_already_caught(exc):
     visited = set()
     visited.add(exc)
@@ -20,8 +21,9 @@ def exception_parent_already_caught(exc):
                 queue.append(_parent)
     return False
 
+
 for e in [input() for _ in range(int(input()))]:
-# for e in ["ZeroDivisionError", "OSError", "ArithmeticError", "FileNotFoundError"]:
+    # for e in ["ZeroDivisionError", "OSError", "ArithmeticError", "FileNotFoundError"]:
     if exception_parent_already_caught(e):
         print(e)
         continue

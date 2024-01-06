@@ -1,5 +1,7 @@
 import json
 from operator import itemgetter
+from collections import defaultdict
+from itertools import chain
 
 # json_string = '[{"name": "A", "parents": []}, {"name": "B", "parents": ["A", "C"]}, {"name": "C", "parents": ["A"]}]'
 
@@ -11,41 +13,36 @@ from operator import itemgetter
 #    {"name": "E", "parents":["D"]},
 #    {"name": "F", "parents":[]}
 # ]
-data = json.loads(input())
-# data = [{"name": "B", "parents": ["A", "C"]}, {"name": "C", "parents": ["A"]}, {"name": "A", "parents": []}, {"name": "D", "parents":["C", "F"]}, {"name": "E", "parents":["D"]}, {"name": "F", "parents":[]}]
+# data = json.loads(input())
+data = [{"name": "B", "parents": ["A", "C"]}, {"name": "C", "parents": ["A"]}, {"name": "A", "parents": []}, {"name": "D", "parents":["C", "F"]}, {"name": "E", "parents":["D"]}, {"name": "F", "parents":[]}]
+
+# {'B': ['A', 'C'], 'C': ['A'], 'A': [], 'D': ['C', 'F'], 'E': ['D'], 'F': []}
+classes_with_parents = {c["name"]: c["parents"] for c in data}
+
+# {'B': [], 'C': [], 'A': [], 'D': [], 'E': [], 'F': []}
+parents_and_children = {
+    k: [] for k in set(chain(
+        *classes_with_parents.keys(),
+        *classes_with_parents.values()
+    ))
+}
+
+for p, children in classes_with_parents.items():
+    for child in children:
+        parents_and_children[child].append(p)
+# ключ - родитель, значение - список прямых потомков
+# {'A': ['B', 'C'], 'E': [], 'C': ['B', 'D'], 'D': ['E'], 'F': ['D'], 'B': []}
+
+def dfs(graph, start):
+    visited, stack = set(), [start]
+    while stack:
+        vertex = stack.pop()
+        if vertex not in visited:
+            visited.add(vertex)
+            stack.extend(set(graph.get(vertex, "")) - visited)
+    return visited
 
 
-def find_cls_parents_by_name(cls_name):
-    """
-    Находит родителей по имени класса
-    :param str cls_name: ключ <name> из словаря {"name": "cls_name", "parents": [...]}
-    :return: список родителей
-    """
-    try:
-        idx = list(map(itemgetter("name"), data)).index(cls_name)
-        return data[idx].get("parents", [])
-    except ValueError:
-        return None
-
-
-def parents_tree(cls_obj):
-    parents = []
-    visited = set()
-    parents.extend(cls_obj["parents"])
-    while parents:
-        parent = parents.pop(0)
-        visited.add(parent)
-        for p in find_cls_parents_by_name(parent):
-            if p not in visited:
-                parents.append(p)
-    return list(visited)
-
-
-child_and_parents = {item["name"]: parents_tree(item) for item in data}
-
-for cls in sorted(child_and_parents.keys()):
-    count = 1
-    for parents in child_and_parents.values():
-        if cls in parents:
-            count += 1
-    print("%s : %s" % (cls, count))
+# for p in set(chain(*map(itemgetter("parents"), data))):
+for c in sorted(map(itemgetter("name"), data)):
+    print("%s : %s" % (c, len(dfs(parents_and_children, c))))
